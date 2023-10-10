@@ -3,30 +3,29 @@ const webpack = require('webpack-stream');
 const browserSync = require('browser-sync').create();
 
 
-gulp.task('default', function () {
+function jsBuild() {
     return gulp
         .src('./src/**/*.js')
         .pipe(webpack(require('./webpack.config.js')))
         .pipe(gulp.dest('dist/'));
-});
+}
 
-gulp.task('browserSync', function (cb) {
+function bowserSyncTask(cb) {
     browserSync.init({
         server: {
-            baseDir: '.'
+            baseDir: './dist',
+            index: "index.html",
         }
     })
     cb()
-})
-
-gulp.task('bowserReload', function (cb) {
+}
+function reloadBrowserTask(cb) {
     browserSync.reload()
     cb()
-})
+}
+function watch() {
+    gulp.watch('./**/*.html', reloadBrowserTask)
+    gulp.watch(['./src/**/*.js', './src/**/*.jsx'], gulp.series(jsBuild, reloadBrowserTask))
+}
 
-gulp.task('watch', function () {
-    gulp.watch('./*.html', gulp.series('bowserReload'))
-    gulp.watch('./src/**/*.js', gulp.series('default', 'bowserReload'))
-})
-
-exports.default = gulp.series('default', 'watch')
+exports.default = gulp.series(jsBuild, bowserSyncTask, watch)

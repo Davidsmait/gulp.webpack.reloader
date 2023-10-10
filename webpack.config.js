@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: "development",
-    entry: './src/index.js',
+    entry: ['./src/index.js', './src/components/button.jsx'],
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
@@ -11,7 +11,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.m?js$/,
+                test: /\.m?(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
@@ -25,8 +25,6 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             hash: true,
-            title: 'This is a Tilte',
-            myPageHeader: 'hOLLO WorLD',
             template: "./index.html",
             filename: "./index.html"
         }),

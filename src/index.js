@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom"
 import { createRoot } from 'react-dom/client';
+import App from './App.jsx'
 
 
 const container = document.getElementById('root');
 
 createRoot(container).render(
     <>
-        <h1>React is sworking</h1>
+        <h1>React container</h1>
+        <App />
     </>
 )
 
