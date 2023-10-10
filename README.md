@@ -1,7 +1,7 @@
 ## Comands
 
-transpile jsx
+###transpile jsx
 npx webpack --watch --config webpack.config.js
 
-transpile & broswer reload
+###transpile & broswer reload
 gulp watch
